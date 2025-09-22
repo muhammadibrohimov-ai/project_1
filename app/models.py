@@ -8,6 +8,7 @@ class User(models.Model):
     phone = models.CharField(max_length=20)
     year = models.PositiveIntegerField()
     address = models.CharField(null=True)
+    salary = models.DecimalField(max_length=10, max_digits=8, decimal_places=2)
     created_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
@@ -33,12 +34,18 @@ class Product(models.Model):
         return self.name
     
 # Order model
-class Order(models.Model):
+class Orders(models.Model):
+    STATUS_CHOICES = [
+        ['in proccess', "In proccess"],
+        ['canceled', 'Canceled'],
+        ['finished', 'Finished'],
+        ['pending', 'Pending']
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    is_active = models.BooleanField(default=True)
+    status = models.CharField(choices=STATUS_CHOICES)
     created_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.id
+        return f"Order #{self.id} - {self.user.name}"
     

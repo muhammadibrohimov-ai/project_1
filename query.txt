@@ -1,0 +1,23 @@
+1 - User.objects.all()
+
+2 - User.objects.filter(name__startswith="A")
+
+3 - User.objects.values('name')
+
+4 - Category.objects.order_by('name')
+
+5 - from django.db.models import Max
+    Product.objects.aggregate(Max('price'))
+
+6 - Orders.objects.earliest('created_at')
+
+7 - User.objects.all().count()
+
+8 - from django.utils import timezone
+    from datetime import timedelta
+    last_seven_days = timezone.now() - timedelta(days=7)
+    User.objects.filter(created_at__gte = last_seven_days)
+
+9 - User.objects.order_by('-salary')[:5]
+
+10 - Orders.objects.filter(status='pending').update(status='done')
